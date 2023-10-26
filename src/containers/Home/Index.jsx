@@ -1,5 +1,6 @@
 
 import api from '../../services/api'
+import { Background } from './styles'
 
 export default function Home () {
     
@@ -10,11 +11,10 @@ export default function Home () {
 
     return(
         <>
-      
-        <div>
+        <Background  img="https://image.tmdb.org/t/p/original/1E5baAaEse26fej7uHcjOgEE2t2.jpg">
             <h1>Home</h1>
             <p>Essa é minha Home</p>
-        </div>
+        </Background >
         </>
     )
 }
