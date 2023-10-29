@@ -1,20 +1,36 @@
-
+import { useState, useEffect } from 'react'
 import api from '../../services/api'
 import { Background } from './styles'
 
 export default function Home () {
+
+const [Movie, SetMovie] = useState()
+
+useEffect(() => {
+ 
+    async function getMovies() {
     
- async function getMovies() {
+        const { data: {results} } = await api.get('/movie/popular')
+
+        SetMovie(results[1])
+    }
     
-    const data = await api.get('/movie/popular')
-}
+    getMovies()
+ 
+}, [ ])
+
+
+ 
+
 
     return(
         <>
-        <Background  img="https://image.tmdb.org/t/p/original/1E5baAaEse26fej7uHcjOgEE2t2.jpg">
-            <h1>Home</h1>
-            <p>Essa é minha Home</p>
+        {Movie && (
+        <Background  img={`https://image.tmdb.org/t/p/original${Movie.backdrop_path}`}>
+            <h1>{Movie.title}</h1>
+            <p>{Movie.overview}</p>
         </Background >
+        )}
         </>
     )
 }
