@@ -13,6 +13,7 @@ import Slider from "../../components/Slider";
 export default function Home() {
   const [Movie, SetMovie] = useState();
   const [TopMovies, SetTopMovies] = useState();
+  const [TopSeries, SetTopSeries] = useState();
 
   useEffect(() => {
     async function getMovies() {
@@ -31,8 +32,16 @@ export default function Home() {
       SetTopMovies(results);
     }
 
+    async function getTopSeries() {
+      const {
+        data: { results },
+      } = await api.get("/tv/top_rated");
+      console.log(results);
+      SetTopSeries(results);
+    }
     getTopMovies();
     getMovies();
+    getTopSeries();
   }, []);
 
   return (
@@ -60,6 +69,7 @@ export default function Home() {
         </Background>
       )}
       {TopMovies && <Slider info={TopMovies} title={'Top Filmes'}/>}
+      {TopSeries && <Slider info={TopSeries} title={'Top Series'}/>}
     </>
   );
 }
