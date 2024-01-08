@@ -10,10 +10,12 @@ import {
 import Button from "../../components/Button";
 import Slider from "../../components/Slider";
 
-export default function Home() {
+export default function Home() {             
   const [Movie, SetMovie] = useState();
   const [TopMovies, SetTopMovies] = useState();
   const [TopSeries, SetTopSeries] = useState();
+  const [PopularSeries, SetPopularSeries] = useState();
+  const [PesonPopular, SetPesonPopular] = useState();
 
   useEffect(() => {
     async function getMovies() {
@@ -39,9 +41,29 @@ export default function Home() {
       console.log(results);
       SetTopSeries(results);
     }
+
+    async function getPopularSeries() {
+      const {
+        data: { results },
+      } = await api.get("/tv/popular");
+      console.log(results);
+      SetPopularSeries(results);
+    }
+
+    async function getPesonPopular() {
+      const {
+        data: { results },
+      } = await api.get("/person/popular");
+      console.log(results);
+      SetPesonPopular(results);
+    }
+
+
     getTopMovies();
     getMovies();
     getTopSeries();
+    getPopularSeries();
+    getPesonPopular();
   }, []);
 
   return (
@@ -70,6 +92,8 @@ export default function Home() {
       )}
       {TopMovies && <Slider info={TopMovies} title={'Top Filmes'}/>}
       {TopSeries && <Slider info={TopSeries} title={'Top Series'}/>}
+      {PopularSeries && <Slider info={PopularSeries} title={'séries populares'}/>}
+      {PesonPopular && <Slider info={PesonPopular} title={'pessoas popular'}/>}
     </>
   );
 }
