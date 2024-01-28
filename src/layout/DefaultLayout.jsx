@@ -8,7 +8,7 @@ export default  function DefaultLayout() {
 
 return(
     <>
-   {/* <Header/>*/}
+    <Header/>
    <Outlet/>
    </>
 )
