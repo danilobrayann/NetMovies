@@ -25,7 +25,7 @@ gap:50px;
 
 
 export const Li = styled.li`
-
+position: relative;
 a{
     color:#ffffff;
     font-weight:600;
@@ -34,6 +34,20 @@ a{
     font-size:28px;
 }
 
+&::after{
+content: "";
+height: 3px;
+width: ${(props) => (props.isActive ? '100%' : 0)};
+background-color:	#006400;
+position: absolute;
+bottom: -10px;
+left: 50%;
+transform: translateX(-50%);
+transition: width 0.5s ease-in-out ; 
+}
 
+&:hover::after{
+    width: 100%;
+}
 `
     
