@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+min-height: 6.25rem;
 z-index: 9;
 position: fixed;
 top: 0;
@@ -9,11 +10,14 @@ padding:10px 50px;
 justify-content: space-evenly;
 align-items: center;
 width: 100%;
-
 color: white;
 img{
     width: 5vw;
 }
+
+background-color: ${props => props.ChageBacgraoud ? 'black' : 'transparent'};
+transition: background-color 3s ease-in-out;
+
 `
 
 export const Menu = styled.ul`
