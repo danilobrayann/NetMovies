@@ -9,6 +9,7 @@ import {
 } from "./styles";
 import Button from "../../components/Button";
 import Slider from "../../components/Slider";
+import Modal from "../../components/modal";
 
 export default function Home() {             
   const [Movie, SetMovie] = useState();
@@ -72,6 +73,7 @@ export default function Home() {
         <Background
           img={`https://image.tmdb.org/t/p/original${Movie.backdrop_path}`}
         >
+          <Modal movieId={Movie.id}/>
           <Container>
             <Infor>
               <h1>{Movie.title}</h1>
