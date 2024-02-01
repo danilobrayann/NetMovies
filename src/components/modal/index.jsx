@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Container, Background } from "./styles";
 import api from "../../services/api";
 
-export default function modal({ movieId }) {
-  const [Movie, setMovie] = useState(false);
+export default function modal({ movieId, setShowModal }) {
+  const [Movie, setMovie] = useState();
 
   useEffect(() => {
     async function getMovies() {
@@ -21,7 +21,7 @@ export default function modal({ movieId }) {
   }, []);
 
   return (
-    <Background>
+    <Background onClick={() => setShowModal(false)}>
         {Movie &&(
       <Container>
         <iframe 

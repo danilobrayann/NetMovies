@@ -11,7 +11,8 @@ import Button from "../../components/Button";
 import Slider from "../../components/Slider";
 import Modal from "../../components/modal";
 
-export default function Home() {             
+export default function Home() {    
+  const [ShowModal, setShowModal] = useState(false);         
   const [Movie, SetMovie] = useState();
   const [TopMovies, SetTopMovies] = useState();
   const [TopSeries, SetTopSeries] = useState();
@@ -73,14 +74,15 @@ export default function Home() {
         <Background
           img={`https://image.tmdb.org/t/p/original${Movie.backdrop_path}`}
         >
-          <Modal movieId={Movie.id}/>
+         {ShowModal && < Modal movieId={Movie.id} setShowModal={setShowModal} />}
           <Container>
             <Infor>
               <h1>{Movie.title}</h1>
               <p>{Movie.overview}</p>
               <ContainerButtons>
                 <Button red={true}>Assista Agora</Button>
-                <Button red={false}>Assista o Trailer</Button>
+                <Button onClick={() => setShowModal(true)}>Assista o Trailer</Button >
+   
               </ContainerButtons>
             </Infor>
             <Poster>
