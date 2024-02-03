@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import {
   Background,
@@ -11,13 +12,14 @@ import Button from "../../components/Button";
 import Slider from "../../components/Slider";
 import Modal from "../../components/modal";
 
-export default function Home() {    
-  const [ShowModal, setShowModal] = useState(false);         
+export default function Home() {
+  const [ShowModal, setShowModal] = useState(false);
   const [Movie, SetMovie] = useState();
   const [TopMovies, SetTopMovies] = useState();
   const [TopSeries, SetTopSeries] = useState();
   const [PopularSeries, SetPopularSeries] = useState();
   const [PesonPopular, SetPesonPopular] = useState();
+  const Navigate = useNavigate();
 
   useEffect(() => {
     async function getMovies() {
@@ -60,7 +62,6 @@ export default function Home() {
       SetPesonPopular(results);
     }
 
-
     getTopMovies();
     getMovies();
     getTopSeries();
@@ -74,15 +75,18 @@ export default function Home() {
         <Background
           img={`https://image.tmdb.org/t/p/original${Movie.backdrop_path}`}
         >
-         {ShowModal && < Modal movieId={Movie.id} setShowModal={setShowModal} />}
+          {ShowModal && (
+            <Modal movieId={Movie.id} setShowModal={setShowModal} />
+          )}
           <Container>
             <Infor>
               <h1>{Movie.title}</h1>
               <p>{Movie.overview}</p>
               <ContainerButtons>
-                <Button red={true}>Assista Agora</Button>
-                <Button onClick={() => setShowModal(true)}>Assista o Trailer</Button >
-   
+                <Button red={true} onClick={()=> Navigate(`/Detail/${Movie.id}`)} >Assista Agora</Button>
+                <Button onClick={() => setShowModal(true)}>
+                  Assista o Trailer
+                </Button>
               </ContainerButtons>
             </Infor>
             <Poster>
@@ -94,10 +98,12 @@ export default function Home() {
           </Container>
         </Background>
       )}
-      {TopMovies && <Slider info={TopMovies} title={'Top Filmes'}/>}
-      {TopSeries && <Slider info={TopSeries} title={'Top Series'}/>}
-      {PopularSeries && <Slider info={PopularSeries} title={'séries populares'}/>}
-      {PesonPopular && <Slider info={PesonPopular} title={'pessoas popular'}/>}
+      {TopMovies && <Slider info={TopMovies} title={"Top Filmes"} />}
+      {TopSeries && <Slider info={TopSeries} title={"Top Series"} />}
+      {PopularSeries && (
+        <Slider info={PopularSeries} title={"séries populares"} />
+      )}
+      {PesonPopular && <Slider info={PesonPopular} title={"pessoas popular"} />}
     </>
   );
 }
