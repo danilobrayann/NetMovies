@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
+
 import {
   Background,
   Infor,
@@ -11,6 +12,7 @@ import {
 import Button from "../../components/Button";
 import Slider from "../../components/Slider";
 import Modal from "../../components/modal";
+import { getMovies, getTopMovies, getTopSeries, getPopularSeries, getPesonPopular  } from "../../services/getDATA";
 
 export default function Home() {
   const [ShowModal, setShowModal] = useState(false);
@@ -22,51 +24,18 @@ export default function Home() {
   const Navigate = useNavigate();
 
   useEffect(() => {
-    async function getMovies() {
-      const {
-        data: { results },
-      } = await api.get("/movie/popular");
+    async function getAllData() {
+ 
 
-      SetMovie(results[0]);
+      SetMovie(await getMovies());
+      SetTopMovies(await getTopMovies());
+      SetTopSeries( await getTopSeries());
+      SetPopularSeries(await getPopularSeries());
+      SetPesonPopular(await getPesonPopular() );
+      
     }
 
-    async function getTopMovies() {
-      const {
-        data: { results },
-      } = await api.get("/movie/top_rated");
-      console.log(results);
-      SetTopMovies(results);
-    }
-
-    async function getTopSeries() {
-      const {
-        data: { results },
-      } = await api.get("/tv/top_rated");
-      console.log(results);
-      SetTopSeries(results);
-    }
-
-    async function getPopularSeries() {
-      const {
-        data: { results },
-      } = await api.get("/tv/popular");
-      console.log(results);
-      SetPopularSeries(results);
-    }
-
-    async function getPesonPopular() {
-      const {
-        data: { results },
-      } = await api.get("/person/popular");
-      console.log(results);
-      SetPesonPopular(results);
-    }
-
-    getTopMovies();
-    getMovies();
-    getTopSeries();
-    getPopularSeries();
-    getPesonPopular();
+    getAllData()
   }, []);
 
   return (
