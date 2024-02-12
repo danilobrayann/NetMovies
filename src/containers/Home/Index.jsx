@@ -12,7 +12,13 @@ import {
 import Button from "../../components/Button";
 import Slider from "../../components/Slider";
 import Modal from "../../components/modal";
-import { getMovies, getTopMovies, getTopSeries, getPopularSeries, getPesonPopular  } from "../../services/getDATA";
+import {
+  getMovies,
+  getTopMovies,
+  getTopSeries,
+  getPopularSeries,
+  getPesonPopular,
+} from "../../services/getDATA";
 
 export default function Home() {
   const [ShowModal, setShowModal] = useState(false);
@@ -24,18 +30,35 @@ export default function Home() {
   const Navigate = useNavigate();
 
   useEffect(() => {
-    async function getAllData() {
- 
 
-      SetMovie(await getMovies());
-      SetTopMovies(await getTopMovies());
-      SetTopSeries( await getTopSeries());
-      SetPopularSeries(await getPopularSeries());
-      SetPesonPopular(await getPesonPopular() );
-      
-    }
+  //  async function getAllData() {
+   //   console.time("time");
+    //  SetMovie(await getMovies());
+    //  SetTopMovies(await getTopMovies());
+    //  SetTopSeries(await getTopSeries());
+     // SetPopularSeries(await getPopularSeries());
+    //  SetPesonPopular(await getPesonPopular());
+    //  console.timeEnd("time");
+   // }
 
-    getAllData()
+   //performatico
+Promise.all([
+  getMovies(),
+  getTopMovies(),
+  getTopSeries(),
+  getPopularSeries(),
+  getPesonPopular()
+])
+.then((result) =>{
+  SetMovie(result[0]);
+  SetTopMovies(result[1]);
+  SetTopSeries(result[2]);
+  SetPopularSeries(result[3]);
+  SetPesonPopular(result[4]);
+})
+.catch((err)=>console.log(err))
+
+
   }, []);
 
   return (
@@ -52,7 +75,12 @@ export default function Home() {
               <h1>{Movie.title}</h1>
               <p>{Movie.overview}</p>
               <ContainerButtons>
-                <Button red={true} onClick={()=> Navigate(`/Detail/${Movie.id}`)} >Assista Agora</Button>
+                <Button
+                  red={true}
+                  onClick={() => Navigate(`/Detail/${Movie.id}`)}
+                >
+                  Assista Agora
+                </Button>
                 <Button onClick={() => setShowModal(true)}>
                   Assista o Trailer
                 </Button>
