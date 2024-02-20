@@ -42,40 +42,39 @@ export async  function getPesonPopular() {
       return results
 }
 // busca um filme pelo ID //
-export async function getMovieVideos(movieId) {
+export async function getMovieVideos(MovieId) {
     const {
         data: { results },
-      } = await api.get(`/movie/${movieId}/videos`);
+      } = await api.get(`/movie/${MovieId}/videos`);
 
       return results[0]
 
 }
 
 ///
-export async function getMovieCredits(movieId) {
+export async function getMovieCredits(MovieId) {
   const 
-     {data}  = await api.get(`/movie/${movieId}/credits`);
+     {data}  = await api.get(`/movie/${MovieId}/credits`);
     
 
-    return data
-
+    return data;
 }
 
-export async function getMovieimilar(movieId) {
+export async function getMovieimilar(MovieId) {
   const {
       data: { results },
-    } = await api.get(`/movie/${movieId}/similar`);
+    } = await api.get(`/movie/${MovieId}/similar`);
 
-    return results
+    return results;
 
 }
 
-export async function getMovieById(movieId) {
-  const  {data}  = await api.get(`/movie/${movieId}`);
+export async function getMovieById(MovieId) {
+  const  {data}  = await api.get(`/movie/${MovieId}`);
      
   
 
-    return data
+    return data;
 
 }
 

@@ -1,8 +1,8 @@
 import { getMovieById, getMovieCredits, getMovieVideos, getMovieimilar } from "../../services/getDATA";
-import {Container,  } from "./styles";
+import {Container,Background,Cover  } from "./styles";
 import React,{useEffect, useState} from 'react';
 import  { useParams } from "react-router-dom";
-
+import { getImages } from "../../utils/getImages";
 export default function Detail() {
 const {id} = useParams()
     const [movie, setmovie] = useState()
@@ -38,12 +38,19 @@ const {id} = useParams()
 
 
     return (
+      <>
+      { movie && (
+      <>
+      <Background image={ getImages(movie.backdrop_path)  }/>
        <Container>
-
-
-
-        
+        <Cover>
+          <img src={getImages(movie.poster_path)}/>
+        </Cover>
        </Container>
+       </>
+          )}
+       </>
+      
     )
 
 }
